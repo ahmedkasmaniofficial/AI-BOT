@@ -1,4 +1,4 @@
-  name: Flutter CI
+name: Flutter CI
 
 on:
   push:
@@ -25,7 +25,9 @@ jobs:
         flutter-version: '3.22.1'
 
     - name: Install dependencies
-      run: flutter pub get
+      run: |
+        flutter pub get
+        flutter pub cache repair
 
     - name: Clean build
       run: |
@@ -35,10 +37,13 @@ jobs:
         flutter clean
 
     - name: Build APK
-      run: flutter build apk --release --verbose
+      run: |
+        flutter build apk --release --verbose
+        ls -la build/app/outputs/flutter-apk/
 
     - name: Upload APK
       uses: actions/upload-artifact@v3
       with:
         name: app-release.apk
         path: build/app/outputs/flutter-apk/app-release.apk
+        if-no-files-found: error
