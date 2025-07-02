@@ -7,9 +7,10 @@ workflows:
         ANDROID_KEYSTORE_PASSWORD: $ANDROID_KEYSTORE_PASSWORD
         ANDROID_KEY_PASSWORD: $ANDROID_KEY_PASSWORD
     scripts:
-      - name: Install dependencies
+      - name: Install Flutter dependencies
         script: |
           flutter pub get
+          flutter pub cache repair
       - name: Build APK
         script: |
           flutter build apk --release
