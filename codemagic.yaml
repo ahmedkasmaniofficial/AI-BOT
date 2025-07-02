@@ -13,6 +13,9 @@ workflows:
           flutter pub cache repair
       - name: Build APK
         script: |
-          flutter build apk --release
+          cd android
+          ./gradlew clean
+          cd ..
+          flutter build apk --release --verbose
     artifacts:
       - build/app/outputs/flutter-apk/app-release.apk
